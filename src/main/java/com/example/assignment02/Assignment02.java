@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,13 +48,23 @@ public class Assignment02 extends Application {
         });
         Button quit = new Button("Quit");
         quit.setOnAction(e -> System.exit(0));
-        hbox.getChildren().addAll(clear, analyze, quit);
+        var choiceBox=new ChoiceBox<String>();
+        choiceBox.getItems().addAll(Font.getFontNames());
+        choiceBox.setOnAction(e -> {
+            var font = choiceBox.getValue();
+            input.setFont(Font.font(font));
+            output.setFont(Font.font(font));
+        });
+
+
+        hbox.getChildren().addAll(clear, analyze, quit, choiceBox);
+
 
 
         root.setRight(vbox);
         root.setBottom(hbox);
 
-        var scene = new Scene(root, 300, 300);
+        var scene = new Scene(root, 600, 600);
 
         stage.setScene(scene);
         stage.show();
